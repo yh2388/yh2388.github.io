@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh_CN">
+<html class="theme-next mist use-motion" lang="zh_CN">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -96,7 +96,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/11/Thread_Lock/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/11/Thread_Condition/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="俞淙">
@@ -251,7 +251,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/07/11/Thread_Lock/" itemprop="url">Lock与读写锁</a></h1>
+                <a class="post-title-link" href="/2017/07/11/Thread_Condition/" itemprop="url">Condition同步通信</a></h1>
         
 
         <div class="post-meta">
@@ -302,10 +302,10 @@
 
       
         
-          <p>Lock比传统线程模型中的synchronized方式更加面向对象，与生活中的锁类似，锁本身也应该是一个对象。<br>两个线程执行的代码片段要实现同步互斥的效果，他们必须用同一个Locak对象。<br>锁是上在代表要操作的资源的类的内部方法中，而不是线程代码中。下面我们写一段代码来展示：</p>
+          <p>Condition的功能类似于传统线程技术中的<code>Object.wait()</code>和<code>Object.notify()</code>。所以通过对比之前的<br>同步通信的代码，来了解<code>Condition</code>。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/11/Thread_Lock/#more" rel="contents">
+            <a class="btn" href="/2017/07/11/Thread_Condition/#more" rel="contents">
               Weiterlesen &raquo;
             </a>
           </div>
@@ -1582,7 +1582,7 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
 
 
