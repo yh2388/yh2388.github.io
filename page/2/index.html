@@ -242,6 +242,129 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/10/ThreadPool2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="俞淙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="T1mon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/10/ThreadPool2/" itemprop="url">线程池技术（二）</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-10T20:40:50+08:00">
+                2017-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><code>Callable</code>与<code>Future</code>的功能与有点类似于回调函数，我们写一段代码来记录一下。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ExecutorService threadPool =  Executors.newSingleThreadExecutor();</span><br><span class="line">Future&lt;String&gt; future =</span><br><span class="line">	threadPool.submit(</span><br><span class="line">		<span class="keyword">new</span> Callable&lt;String&gt;() &#123;</span><br><span class="line">			<span class="function"><span class="keyword">public</span> String <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">				Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">				<span class="keyword">return</span> <span class="string">"hello"</span>;</span><br><span class="line">			&#125;;</span><br><span class="line">		&#125;</span><br><span class="line">);</span><br><span class="line">System.out.println(<span class="string">"等待结果"</span>);</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	System.out.println(<span class="string">"拿到结果"</span> + future.get());</span><br><span class="line">&#125;<span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们实现了一个功能，即通过<code>future.get()</code>来获取到<code>Callable</code>执行完毕后的返回结果。</p>
+<p>另外，我们还有一种方法，简而言之就是获取到完成后的结果，谁先完成就获取谁。示例代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">ExecutorService threadPool =  Executors.newFixedThreadPool(<span class="number">10</span>);</span><br><span class="line">CompletionService&lt;Integer&gt; completionService = <span class="keyword">new</span> ExecutorCompletionService&lt;Integer&gt;(threadPool);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">10</span>;i++)&#123;</span><br><span class="line">	 <span class="keyword">final</span> <span class="keyword">int</span> seq = i;</span><br><span class="line">	completionService.submit(<span class="keyword">new</span> Callable&lt;Integer&gt;() &#123;</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> Integer <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">			Thread.sleep(<span class="keyword">new</span> Random().nextInt(<span class="number">5000</span>));</span><br><span class="line">			<span class="keyword">return</span> seq;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		System.out.println(completionService.take().get());</span><br><span class="line">	&#125;<span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用这两种技术时，<code>threadPool</code>都不再调用<code>execute()</code>,而是调用<code>submit()</code>。<br>执行后的结果就不再赘述了。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/10/ThreadPool1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -322,129 +445,6 @@
             </a>
           </div>
           <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/10/ThreadPool2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="俞淙">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="T1mon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/10/ThreadPool2/" itemprop="url">线程池技术（二）</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-10T20:40:50+08:00">
-                2017-07-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><code>Callable</code>与<code>Future</code>的功能与有点类似于回调函数，我们写一段代码来记录一下。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ExecutorService threadPool =  Executors.newSingleThreadExecutor();</span><br><span class="line">Future&lt;String&gt; future =</span><br><span class="line">	threadPool.submit(</span><br><span class="line">		<span class="keyword">new</span> Callable&lt;String&gt;() &#123;</span><br><span class="line">			<span class="function"><span class="keyword">public</span> String <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">				Thread.sleep(<span class="number">2000</span>);</span><br><span class="line">				<span class="keyword">return</span> <span class="string">"hello"</span>;</span><br><span class="line">			&#125;;</span><br><span class="line">		&#125;</span><br><span class="line">);</span><br><span class="line">System.out.println(<span class="string">"等待结果"</span>);</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	System.out.println(<span class="string">"拿到结果"</span> + future.get());</span><br><span class="line">&#125;<span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>我们实现了一个功能，即通过<code>future.get()</code>来获取到<code>Callable</code>执行完毕后的返回结果。</p>
-<p>另外，我们还有一种方法，简而言之就是获取到完成后的结果，谁先完成就获取谁。示例代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">ExecutorService threadPool =  Executors.newFixedThreadPool(<span class="number">10</span>);</span><br><span class="line">CompletionService&lt;Integer&gt; completionService = <span class="keyword">new</span> ExecutorCompletionService&lt;Integer&gt;(threadPool);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">10</span>;i++)&#123;</span><br><span class="line">	 <span class="keyword">final</span> <span class="keyword">int</span> seq = i;</span><br><span class="line">	completionService.submit(<span class="keyword">new</span> Callable&lt;Integer&gt;() &#123;</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> Integer <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">			Thread.sleep(<span class="keyword">new</span> Random().nextInt(<span class="number">5000</span>));</span><br><span class="line">			<span class="keyword">return</span> seq;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		System.out.println(completionService.take().get());</span><br><span class="line">	&#125;<span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>使用这两种技术时，<code>threadPool</code>都不再调用<code>execute()</code>,而是调用<code>submit()</code>。<br>执行后的结果就不再赘述了。</p>
-
-          
         
       
     </div>
@@ -740,6 +740,130 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/04/thread_synchronized/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="俞淙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="T1mon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/04/thread_synchronized/" itemprop="url">多线程的互斥问题</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-04T20:40:50+08:00">
+                2017-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>通常，我们在理解多线程互斥问题的时候会用银行转账这个例子来说明，道理也很简单，即当你在进行取钱操作的<br>时候，有人在这个时候向你汇款，那么就会出现账面余额与实际情况不符的问题。虽然这是小概率发生的事情，但是，这也是绝对不允许的事情。<br>现在，我们就通过几个小例子，来逐步说明线程互斥的问题。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/04/thread_synchronized/#more" rel="contents">
+              Weiterlesen &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/04/ThreadLocal/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -815,130 +939,6 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/07/04/ThreadLocal/#more" rel="contents">
-              Weiterlesen &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/04/thread_synchronized/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="俞淙">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="T1mon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/04/thread_synchronized/" itemprop="url">多线程的互斥问题</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-04T20:40:50+08:00">
-                2017-07-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>通常，我们在理解多线程互斥问题的时候会用银行转账这个例子来说明，道理也很简单，即当你在进行取钱操作的<br>时候，有人在这个时候向你汇款，那么就会出现账面余额与实际情况不符的问题。虽然这是小概率发生的事情，但是，这也是绝对不允许的事情。<br>现在，我们就通过几个小例子，来逐步说明线程互斥的问题。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/04/thread_synchronized/#more" rel="contents">
               Weiterlesen &raquo;
             </a>
           </div>
