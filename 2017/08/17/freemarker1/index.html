@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh_CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="FreeMarker," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="由于之前面试的时候被问到了是否了解Freemaker这个问题，我的回答当然是不了解了，因为之前没有接触过。因此，回来以后就补一下这方面的相关知识了。 FreeMarker语言概述 FreeMarker是一个模板引擎，一个基于模板生成文本输出的通用工具，使用纯Java编写。 FreeMarker被设计用来生成HTML Web页面，特别是基于MVC模式的应用程序。虽然FreeMarker具有一些编程的">
+<meta name="keywords" content="FreeMarker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FreeMarker初入">
+<meta property="og:url" content="http://yoursite.com/2017/08/17/freemarker1/index.html">
+<meta property="og:site_name" content="T1mon">
+<meta property="og:description" content="由于之前面试的时候被问到了是否了解Freemaker这个问题，我的回答当然是不了解了，因为之前没有接触过。因此，回来以后就补一下这方面的相关知识了。 FreeMarker语言概述 FreeMarker是一个模板引擎，一个基于模板生成文本输出的通用工具，使用纯Java编写。 FreeMarker被设计用来生成HTML Web页面，特别是基于MVC模式的应用程序。虽然FreeMarker具有一些编程的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:updated_time" content="2017-09-19T03:20:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="FreeMarker初入">
+<meta name="twitter:description" content="由于之前面试的时候被问到了是否了解Freemaker这个问题，我的回答当然是不了解了，因为之前没有接触过。因此，回来以后就补一下这方面的相关知识了。 FreeMarker语言概述 FreeMarker是一个模板引擎，一个基于模板生成文本输出的通用工具，使用纯Java编写。 FreeMarker被设计用来生成HTML Web页面，特别是基于MVC模式的应用程序。虽然FreeMarker具有一些编程的">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/17/freemarker1/"/>
+
+
+
+
+
+  <title>FreeMarker初入 | T1mon</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh_CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">T1mon</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            Commonweal 404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/17/freemarker1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="俞淙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="T1mon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">FreeMarker初入</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-17T20:40:50+08:00">
+                2017-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>由于之前面试的时候被问到了是否了解Freemaker这个问题，我的回答当然是不了解了，因为之前没有接触过。<br>因此，回来以后就补一下这方面的相关知识了。</p>
+<h4 id="FreeMarker语言概述"><a href="#FreeMarker语言概述" class="headerlink" title="FreeMarker语言概述"></a>FreeMarker语言概述</h4><ul>
+<li>FreeMarker是一个模板引擎，一个基于模板生成文本输出的通用工具，使用纯Java编写。</li>
+<li>FreeMarker被设计用来生成HTML Web页面，特别是基于MVC模式的应用程序。<br>虽然FreeMarker具有一些编程的能力，但通常由Java程序准备要显示的数据，由FreeMarker生成页面，通过模板显示准备的数据。</li>
+<li>FreeMarker不是一个Web应用框架，而适合作为Web应用框架一个组件。</li>
+<li>FreeMarker与容器无关，因为它并不知道HTTP或Servlet；FreeMarker同样可以应用于非Web应用程序环境。</li>
+<li>FreeMarker更适合作为Model2框架（如Struts）的视图组件，你也可以在模板中使用JSP标记库。</li>
+<li>FreeMarker是免费的。</li>
+</ul>
+<a id="more"></a>
+<h4 id="FreeMarker特性"><a href="#FreeMarker特性" class="headerlink" title="FreeMarker特性"></a>FreeMarker特性</h4><h5 id="通用目标"><a href="#通用目标" class="headerlink" title="通用目标"></a>通用目标</h5><ul>
+<li>能够生成各种文本：HTML、XML、RTF、Java源代码等等</li>
+<li>易于嵌入到你的产品中：轻量级；不需要Servlet环境</li>
+<li>插件式模板载入器：可以从任何源载入模板，如本地文件、数据库等等</li>
+<li>你可以按你所需生成文本：保存到本地文件；作为Email发送；从Web应用程序发送它返回给Web浏览器</li>
+</ul>
+<h5 id="强大的模板语言"><a href="#强大的模板语言" class="headerlink" title="强大的模板语言"></a>强大的模板语言</h5><p>所有常用的指令：include、if/elseif/else、循环结构。<br>在模板中创建和改变变量，几乎在任何地方都可以使用复杂表达式来指定值。<br>命名的宏，可以具有位置参数和嵌套内容。命名空间有助于建立和维护可重用的宏库，或者将一个大工程分成模块，而不必担心名字冲突。<br>输出转换块：在嵌套模板片段生成输出时，转换HTML转义、压缩、语法高亮等等；你可以定义自己的转换。</p>
+<h5 id="通用数据模型"><a href="#通用数据模型" class="headerlink" title="通用数据模型"></a>通用数据模型</h5><p>FreeMarker不是直接反射到Java对象，Java对象通过插件式对象封装，以变量方式在模板中显示。<br>你可以使用抽象（接口）方式表示对象（JavaBean、XML文档、SQL查询结果集等等），<br>告诉模板开发者使用方法，使其不受技术细节的打扰。</p>
+<h5 id="为Web准备"><a href="#为Web准备" class="headerlink" title="为Web准备"></a>为Web准备</h5><p>在模板语言中内建处理典型Web相关任务（如HTML转义）的结构；<br>能够集成到Model2 Web应用框架中作为JSP的替代；<br>支持JSP标记库；<br>为MVC模式设计：分离可视化设计和应用程序逻辑；分离页面设计员和程序员。</p>
+<h5 id="智能的国际化和本地化"><a href="#智能的国际化和本地化" class="headerlink" title="智能的国际化和本地化"></a>智能的国际化和本地化</h5><ul>
+<li>字符集智能化（内部使用UNICODE）</li>
+<li>数字格式本地化敏感</li>
+<li>日期和时间格式本地化敏感</li>
+<li>非US字符集可以用作标识（如变量名）</li>
+<li>多种不同语言的相同模板</li>
+</ul>
+<h5 id="强大的XML处理能力"><a href="#强大的XML处理能力" class="headerlink" title="强大的XML处理能力"></a>强大的XML处理能力</h5><p><code>&lt;#recurse&gt;</code> 和<code>&lt;#visit&gt;</code>指令（2.3版本）用于递归遍历XML树。<br>在模板中清楚和直觉的访问XML对象模型。开源论坛 JForum 就是使用了 FreeMarker 做为页面模板。</p>
+<h4 id="第一个FreeMarker程序"><a href="#第一个FreeMarker程序" class="headerlink" title="第一个FreeMarker程序"></a>第一个FreeMarker程序</h4><ol>
+<li>建立一个普通的java项目：testFreeMarker</li>
+<li>引入freemarker.jar包</li>
+<li>在项目目录下建立模板目录：templates</li>
+<li>在templates目录下，建立a.ftl模板文件，内容如下：<br><code>你好啊，${user}，今天你的精神不错！</code></li>
+<li>建立com.yc.test.freemarker包，然后建立Test1.java文件，内容如下：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStreamWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.Writer;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> freemarker.template.Configuration;</span><br><span class="line"><span class="keyword">import</span> freemarker.template.DefaultObjectWrapper;</span><br><span class="line"><span class="keyword">import</span> freemarker.template.Template;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test1</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		<span class="comment">//创建Freemarker配置实例</span></span><br><span class="line">		Configuration cfg = <span class="keyword">new</span> Configuration();</span><br><span class="line">		</span><br><span class="line">		cfg.setDirectoryForTemplateLoading(<span class="keyword">new</span> File(<span class="string">"templates"</span>)); </span><br><span class="line">		</span><br><span class="line">		<span class="comment">//创建数据模型</span></span><br><span class="line">		Map root = <span class="keyword">new</span> HashMap();</span><br><span class="line">		root.put(<span class="string">"user"</span>, <span class="string">"老高"</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//加载模板文件</span></span><br><span class="line">		Template t1 = cfg.getTemplate(<span class="string">"a.ftl"</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//显示生成的数据,//将合并后的数据打印到控制台</span></span><br><span class="line">		Writer out = <span class="keyword">new</span> OutputStreamWriter(System.out); </span><br><span class="line">		t1.process(root, out);</span><br><span class="line">		out.flush();</span><br><span class="line">        out.close();</span><br><span class="line"></span><br><span class="line">		<span class="comment">//显示生成的数据,//将合并后的数据直接返回成字符串！</span></span><br><span class="line"><span class="comment">//		StringWriter out = new StringWriter();   </span></span><br><span class="line"><span class="comment">//		t1.process(root, out);</span></span><br><span class="line"><span class="comment">//		out.flush();</span></span><br><span class="line"><span class="comment">//      out.close();</span></span><br><span class="line"><span class="comment">//		String temp = out.toString();</span></span><br><span class="line"><span class="comment">//		System.out.println(temp);	&#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>控制台输出的结果为：<code>你好啊，老高，今天你的精神不错！</code>，可以看出，这与EL表达式非常的相似。</p>
+<h4 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h4><h5 id="一、直接指定值"><a href="#一、直接指定值" class="headerlink" title="一、直接指定值"></a>一、直接指定值</h5><p>直接指定值可以是字符串、数值、布尔值、集合及Map对象。</p>
+<ol>
+<li><p>字符串<br>直接指定字符串值使用单引号或双引号限定。字符串中可以使用转义字符”\”。<br>如果字符串内有大量的特殊字符，则可以在引号的前面加上一个字母r，则字符串内的所有字符都将直接输出。</p>
+</li>
+<li><p>数值<br>数值可以直接输入，不需要引号。FreeMarker不支持科学计数法。</p>
+</li>
+<li><p>布尔值<br>直接使用true或false，不使用引号。</p>
+</li>
+<li><p>集合<br>集合用中括号包括，集合元素之间用逗号分隔。<br>使用数字范围也可以表示一个数字集合，如1..5等同于集合[1, 2, 3, 4, 5]；同样也可以用5..1来表示[5, 4, 3, 2, 1]。</p>
+</li>
+<li><p>Map对象<br>Map对象使用花括号包括，Map中的key-value对之间用冒号分隔，多组key-value对之间用逗号分隔。<br>注意：Map对象的key和value都是表达式，但key必须是字符串。</p>
+</li>
+<li><p>时间对象<br>root.put(“date1”, new Date());<br>${date1?string(“yyyy-MM-dd HH:mm:ss”)}</p>
+</li>
+<li><p>JAVABEAN的处理:<br> Freemarker中对于javabean的处理跟EL表达式一致，类型可自动转化！非常方便！</p>
+</li>
+</ol>
+<h5 id="二、输出变量值"><a href="#二、输出变量值" class="headerlink" title="二、输出变量值"></a>二、输出变量值</h5><p>FreeMarker的表达式输出变量时，这些变量可以是顶层变量，也可以是Map对象的变量，还可以是集合中的变量，并可以使用点（.）语法来访问Java对象的属性。</p>
+<ol>
+<li><p>顶层变量<br>所谓顶层变量就是直接放在数据模型中的值。输出时直接用${variableName}即可。</p>
+</li>
+<li><p>输出集合元素<br>可 以根据集合元素的索引来输出集合元素，索引用中括号包括。如： 输出[“1”， “2”， “3”]这个名为number的集合，可以用${number[0]}来输出第一个数字。FreeMarker还支持用number[1..2]来表示原 集合的子集合[“2”， “3”]。</p>
+</li>
+<li><p>输出Map元素<br>对于JavaBean实例，FreeMarker一样把它看作属性为key，属性值为value的Map对象。<br>输出Map对象时，可以使用点语法或中括号语法，如下面的几种写法的效果是一样的：<br><code>book.author.name</code> <code>book.author[&quot;name&quot;]</code> <code>book[&quot;author&quot;].name</code> <code>book[&quot;author&quot;][&quot;name&quot;]</code>。<br>使用点语法时，变量名字有和顶层变量一样的限制，但中括号语法没有任何限制。</p>
+</li>
+</ol>
+<h5 id="三、字符串操作"><a href="#三、字符串操作" class="headerlink" title="三、字符串操作"></a>三、字符串操作</h5><h6 id="1-字符串连接"><a href="#1-字符串连接" class="headerlink" title="1. 字符串连接"></a>1. 字符串连接</h6><p>字符串连接有两种语法：</p>
+<p>(1) 使用<code>${..}</code>或<code>#{..}</code>在字符串常量内插入表达式的值；</p>
+<p>(2) 直接使用连接运算符“+”连接字符串。<br>如，下面两种写法等效：<br><code>${&quot;Hello, ${user}&quot;}</code>,<code>${&quot;Hello, &quot; + user + &quot;!&quot;}</code><br>有一点需要注意： ${..}只能用于文本部分作为插值输出，而不能用于比较等其他用途，如：<br><code>&lt;#if ${isBig}&gt;Wow!&lt;/#if&gt;</code><br><code>&lt;#if &quot;${isBig}&quot;&gt;Wow!&lt;/#if&gt;</code><br>应该写成：<br><code>&lt;#if isBig&gt;Wow!&lt;/#if&gt;</code></p>
+<h6 id="2-截取子串"><a href="#2-截取子串" class="headerlink" title="2. 截取子串"></a>2. 截取子串</h6><p>截取子串可以根据字符串的索引来进行，如果指定一个索引值，则取得字符串该索引处的字符；如果指定两个索引值，<br>则截取两个索引中间的字符串子串。如：<br><code>&lt;#assign number=&quot;01234&quot;&gt;</code><br><code>${number[0]} &lt;#-- 输出字符0 --&gt;</code><br><code>${number[0..3]} &lt;#-- 输出子串“0123” --&gt;</code></p>
+<h5 id="四、集合连接操作"><a href="#四、集合连接操作" class="headerlink" title="四、集合连接操作"></a>四、集合连接操作</h5><p>连接集合的运算符为“+”</p>
+<h5 id="五、Map连接操作"><a href="#五、Map连接操作" class="headerlink" title="五、Map连接操作"></a>五、Map连接操作</h5><p>   Map连接操作的运算符为“+”</p>
+<h5 id="六、算术运算符"><a href="#六、算术运算符" class="headerlink" title="六、算术运算符"></a>六、算术运算符</h5><p>   FreeMarker表达式中支持“+”、“－”、“*”、“/”、“%”运算符。</p>
+<h5 id="七、比较运算符"><a href="#七、比较运算符" class="headerlink" title="七、比较运算符"></a>七、比较运算符</h5><p>表达式中支持的比较运算符有如下几种：</p>
+<ol>
+<li><code>=</code>（或者<code>==</code>）： 判断两个值是否相等；</li>
+<li><code>!=</code>： 判断两个值是否不相等；<br>注： =和!=可以用作字符串、数值和日期的比较，但两边的数据类型必须相同。而且FreeMarker的比较是精确比较，不会忽略大小写及空格。</li>
+<li><code>&gt;</code>（或者gt）： 大于</li>
+<li><code>&gt;=</code>（或者gte）： 大于等于</li>
+<li><code>&lt;</code>（或者lt）： 小于</li>
+<li><code>&lt;=</code>（或者lte）： 小于等于<br>注： 上面这些比较运算符可以用于数字和日期，但不能用于字符串。<br>大部分时候，使用gt比<code>&gt;</code>有更好的效果，因为FreeMarker会把<code>&gt;</code>解释成标签的结束字符。<br>可以使用括号来避免这种情况，如：<code>&lt;#if (x&gt;y)&gt;</code>。</li>
+</ol>
+<h5 id="八、逻辑运算符"><a href="#八、逻辑运算符" class="headerlink" title="八、逻辑运算符"></a>八、逻辑运算符</h5><ol>
+<li><code>&amp;&amp;</code>： 逻辑与；</li>
+<li><code>||</code>： 逻辑或；</li>
+<li><code>!</code>： 逻辑非；</li>
+</ol>
+<p>逻辑运算符只能用于布尔值。</p>
+<h5 id="九、内建函数"><a href="#九、内建函数" class="headerlink" title="九、内建函数"></a>九、内建函数</h5><p>FreeMarker提供了一些内建函数来转换输出，可以在任何变量后紧跟?，?后紧跟内建函数，就可以通过内建函数来转换输出变量。</p>
+<p>字符串相关常用的内建函数：</p>
+<ol>
+<li>html： 对字符串进行HTML编码；</li>
+<li>cap_first： 使字符串第一个字母大写；</li>
+<li>lower_case： 将字符串转成小写；</li>
+<li>upper_case： 将字符串转成大写；</li>
+</ol>
+<p>集合相关常用的内建函数：</p>
+<ol>
+<li>size： 获得集合中元素的个数；</li>
+</ol>
+<p>数字值相关常用的内建函数：</p>
+<ol>
+<li>int： 取得数字的整数部分。</li>
+</ol>
+<p>举例：<code>root.put(&quot;htm2&quot;, &quot;&lt;b&gt;粗体&lt;/b&gt;&quot;);</code> ,使用内建函数：<code>${htm2?html}</code>。</p>
+<h5 id="十、空值处理运算符"><a href="#十、空值处理运算符" class="headerlink" title="十、空值处理运算符"></a>十、空值处理运算符</h5><p>FreeMarker的变量必须赋值，否则就会抛出异常。而对于FreeMarker来说，null值和不存在的变量是完全一样的，因为FreeMarker无法理解null值。<br>FreeMarker提供两个运算符来避免空值：</p>
+<ol>
+<li><code>!</code>： 指定缺失变量的默认值；</li>
+<li><code>??</code>：判断变量是否存在。<br>!运算符有两种用法：<code>variable!</code>或<code>variable!defaultValue</code>。第一种用法不给变量指定默认值，<br>表明默认值是空字符串、长度为0的集合、或长度为0的Map对象。<br>使用!运算符指定默认值并不要求默认值的类型和变量类型相同。</li>
+</ol>
+<p>测试空值处理：<br><code>&lt;#-- ${sss} 没有定义这个变量，会报异常！ --&gt;</code>;<br><code>${sss!} &lt;#--没有定义这个变量，默认值是空字符串！ --&gt;</code>;<br><code>${sss!&quot;abc&quot;} &lt;#--没有定义这个变量，默认值是字符串abc！ --&gt;</code>。</p>
+<p><code>??</code>运算符返回布尔值，如：<code>variable??</code>，如果变量存在，返回<code>true</code>，否则返回<code>false</code>。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>打钱，谢谢！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="俞淙 WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="俞淙 Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/FreeMarker/" rel="tag"># FreeMarker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/17/freemarker3/" rel="next" title="FreeMarker模板开发语句">
+                <i class="fa fa-chevron-left"></i> FreeMarker模板开发语句
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/18/mianshi1/" rel="prev" title="面试中遇到的不足（一）">
+                面试中遇到的不足（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNDAwMC8xMDUzNQ=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">俞淙</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#FreeMarker语言概述"><span class="nav-number">1.</span> <span class="nav-text">FreeMarker语言概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FreeMarker特性"><span class="nav-number">2.</span> <span class="nav-text">FreeMarker特性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#通用目标"><span class="nav-number">2.1.</span> <span class="nav-text">通用目标</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#强大的模板语言"><span class="nav-number">2.2.</span> <span class="nav-text">强大的模板语言</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通用数据模型"><span class="nav-number">2.3.</span> <span class="nav-text">通用数据模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为Web准备"><span class="nav-number">2.4.</span> <span class="nav-text">为Web准备</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#智能的国际化和本地化"><span class="nav-number">2.5.</span> <span class="nav-text">智能的国际化和本地化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#强大的XML处理能力"><span class="nav-number">2.6.</span> <span class="nav-text">强大的XML处理能力</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第一个FreeMarker程序"><span class="nav-number">3.</span> <span class="nav-text">第一个FreeMarker程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据类型"><span class="nav-number">4.</span> <span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#一、直接指定值"><span class="nav-number">4.1.</span> <span class="nav-text">一、直接指定值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二、输出变量值"><span class="nav-number">4.2.</span> <span class="nav-text">二、输出变量值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三、字符串操作"><span class="nav-number">4.3.</span> <span class="nav-text">三、字符串操作</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-字符串连接"><span class="nav-number">4.3.1.</span> <span class="nav-text">1. 字符串连接</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-截取子串"><span class="nav-number">4.3.2.</span> <span class="nav-text">2. 截取子串</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#四、集合连接操作"><span class="nav-number">4.4.</span> <span class="nav-text">四、集合连接操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#五、Map连接操作"><span class="nav-number">4.5.</span> <span class="nav-text">五、Map连接操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#六、算术运算符"><span class="nav-number">4.6.</span> <span class="nav-text">六、算术运算符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#七、比较运算符"><span class="nav-number">4.7.</span> <span class="nav-text">七、比较运算符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#八、逻辑运算符"><span class="nav-number">4.8.</span> <span class="nav-text">八、逻辑运算符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#九、内建函数"><span class="nav-number">4.9.</span> <span class="nav-text">九、内建函数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#十、空值处理运算符"><span class="nav-number">4.10.</span> <span class="nav-text">十、空值处理运算符</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">俞淙</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
