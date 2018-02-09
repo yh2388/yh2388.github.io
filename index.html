@@ -612,7 +612,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/17/freemarker2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/17/freemarker1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="俞淙">
@@ -631,7 +631,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/08/17/freemarker2/" itemprop="url">FreeMarker数据类型常见示例</a></h1>
+                <a class="post-title-link" href="/2017/08/17/freemarker1/" itemprop="url">FreeMarker初入</a></h1>
         
 
         <div class="post-meta">
@@ -682,15 +682,18 @@
 
       
         
-          <h5 id="直接指定值"><a href="#直接指定值" class="headerlink" title="直接指定值"></a>直接指定值</h5><ul>
-<li>字符串 ： <code>&quot;Foo&quot;</code>或 者<code>&#39;Foo&#39;</code>或<code>&quot;It&#39;s \&quot;quoted\&quot;&quot;</code>或<code>r&quot;C:\raw\string&quot;</code> </li>
-<li>数字：<code>123.45</code> </li>
-<li>布尔值：<code>true</code>, <code>false</code> </li>
-<li>序列：<code>[&quot;foo&quot;, &quot;bar&quot;, 123.45]</code>, <code>1..100</code> </li>
-<li>哈希表：<code>{&quot;name&quot;:&quot;green mouse&quot;, &quot;price&quot;:150}</code>
+          <p>由于之前面试的时候被问到了是否了解Freemaker这个问题，我的回答当然是不了解了，因为之前没有接触过。<br>因此，回来以后就补一下这方面的相关知识了。</p>
+<h4 id="FreeMarker语言概述"><a href="#FreeMarker语言概述" class="headerlink" title="FreeMarker语言概述"></a>FreeMarker语言概述</h4><ul>
+<li>FreeMarker是一个模板引擎，一个基于模板生成文本输出的通用工具，使用纯Java编写。</li>
+<li>FreeMarker被设计用来生成HTML Web页面，特别是基于MVC模式的应用程序。<br>虽然FreeMarker具有一些编程的能力，但通常由Java程序准备要显示的数据，由FreeMarker生成页面，通过模板显示准备的数据。</li>
+<li>FreeMarker不是一个Web应用框架，而适合作为Web应用框架一个组件。</li>
+<li>FreeMarker与容器无关，因为它并不知道HTTP或Servlet；FreeMarker同样可以应用于非Web应用程序环境。</li>
+<li>FreeMarker更适合作为Model2框架（如Struts）的视图组件，你也可以在模板中使用JSP标记库。</li>
+<li>FreeMarker是免费的。</li>
+</ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/08/17/freemarker2/#more" rel="contents">
+            <a class="btn" href="/2017/08/17/freemarker1/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -870,7 +873,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/17/freemarker1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/17/freemarker2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="俞淙">
@@ -889,7 +892,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/08/17/freemarker1/" itemprop="url">FreeMarker初入</a></h1>
+                <a class="post-title-link" href="/2017/08/17/freemarker2/" itemprop="url">FreeMarker数据类型常见示例</a></h1>
         
 
         <div class="post-meta">
@@ -940,18 +943,15 @@
 
       
         
-          <p>由于之前面试的时候被问到了是否了解Freemaker这个问题，我的回答当然是不了解了，因为之前没有接触过。<br>因此，回来以后就补一下这方面的相关知识了。</p>
-<h4 id="FreeMarker语言概述"><a href="#FreeMarker语言概述" class="headerlink" title="FreeMarker语言概述"></a>FreeMarker语言概述</h4><ul>
-<li>FreeMarker是一个模板引擎，一个基于模板生成文本输出的通用工具，使用纯Java编写。</li>
-<li>FreeMarker被设计用来生成HTML Web页面，特别是基于MVC模式的应用程序。<br>虽然FreeMarker具有一些编程的能力，但通常由Java程序准备要显示的数据，由FreeMarker生成页面，通过模板显示准备的数据。</li>
-<li>FreeMarker不是一个Web应用框架，而适合作为Web应用框架一个组件。</li>
-<li>FreeMarker与容器无关，因为它并不知道HTTP或Servlet；FreeMarker同样可以应用于非Web应用程序环境。</li>
-<li>FreeMarker更适合作为Model2框架（如Struts）的视图组件，你也可以在模板中使用JSP标记库。</li>
-<li>FreeMarker是免费的。</li>
-</ul>
+          <h5 id="直接指定值"><a href="#直接指定值" class="headerlink" title="直接指定值"></a>直接指定值</h5><ul>
+<li>字符串 ： <code>&quot;Foo&quot;</code>或 者<code>&#39;Foo&#39;</code>或<code>&quot;It&#39;s \&quot;quoted\&quot;&quot;</code>或<code>r&quot;C:\raw\string&quot;</code> </li>
+<li>数字：<code>123.45</code> </li>
+<li>布尔值：<code>true</code>, <code>false</code> </li>
+<li>序列：<code>[&quot;foo&quot;, &quot;bar&quot;, 123.45]</code>, <code>1..100</code> </li>
+<li>哈希表：<code>{&quot;name&quot;:&quot;green mouse&quot;, &quot;price&quot;:150}</code>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/08/17/freemarker1/#more" rel="contents">
+            <a class="btn" href="/2017/08/17/freemarker2/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1127,126 +1127,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/03/test/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="俞淙">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="T1mon">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/03/test/" itemprop="url">一路顺风，向着更美好的未来</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-03T20:40:50+08:00">
-                2017-08-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="/img/jianghuan.png" alt="jianghuan"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/16/startRedis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1321,6 +1201,130 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/07/16/startRedis/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/11/Thread_Condition/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="俞淙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="T1mon">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/11/Thread_Condition/" itemprop="url">Condition同步通信</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-11T20:40:50+08:00">
+                2017-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Condition的功能类似于传统线程技术中的<code>Object.wait()</code>和<code>Object.notify()</code>。所以通过对比之前的<br>同步通信的代码，来了解<code>Condition</code>。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/11/Thread_Condition/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1532,7 +1536,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
